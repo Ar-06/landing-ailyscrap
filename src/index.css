@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #14B8A6;          
+  --color-secondary: #FCD34D;        
+  --color-accent: #FDA4AF;           
+  
+  --color-background-light: #FAFAF9;
+  --color-background-dark: #1C1917;
+  --color-surface-light: #FFFFFF;
+  --color-surface-dark: #292524;
+
+  --font-display: "Dancing Script", cursive;
+  --font-body: "Quicksand", sans-serif;
+
+  --background-image-dotted-pattern: radial-gradient(#CBD5E1 1px, transparent 1px);
+  --background-image-dotted-pattern-dark: radial-gradient(#44403C 1px, transparent 1px);
+}
+
+@layer utilities {
+  .decoration-dotted-circle {
+    background-size: 20px 20px;
+  }
+}
