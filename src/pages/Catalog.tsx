@@ -1,6 +1,6 @@
 export default function Catalog() {
   return (
-    <div>
+    <div className="animate-fade-in">
       <h1>Catalog</h1>
     </div>
   );
