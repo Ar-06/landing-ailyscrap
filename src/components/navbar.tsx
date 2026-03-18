@@ -1,9 +1,10 @@
 import { ArrowRight, Menu, Scissors, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -34,25 +35,33 @@ export const Navbar = () => {
             <div className="hidden md:flex items-center space-x-8">
               <Link
                 to="/"
-                className="text-gray-600 hover:text-primary transition-colors font-medium"
+                className={`hover:text-primary transition-colors font-medium ${
+                  location.pathname === "/" ? "text-primary" : "text-gray-600"
+                }`}
               >
                 Inicio
               </Link>
               <Link
                 to="/catalog"
-                className="text-gray-600 hover:text-primary transition-colors font-medium"
+                className={`hover:text-primary transition-colors font-medium ${
+                  location.pathname === "/catalog" ? "text-primary" : "text-gray-600"
+                }`}
               >
                 Catálogo
               </Link>
               <Link
                 to="/categories"
-                className="text-gray-600 hover:text-primary transition-colors font-medium"
+                className={`hover:text-primary transition-colors font-medium ${
+                  location.pathname === "/categories" ? "text-primary" : "text-gray-600"
+                }`}
               >
                 Categorías
               </Link>
               <Link
                 to="/about"
-                className="text-gray-600 hover:text-primary transition-colors font-medium"
+                className={`hover:text-primary transition-colors font-medium ${
+                  location.pathname === "/about" ? "text-primary" : "text-gray-600"
+                }`}
               >
                 Historia
               </Link>
@@ -108,28 +117,36 @@ export const Navbar = () => {
           <Link
             to="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-gray-700 text-lg hover:text-primary bg-transparent hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium"
+            className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
+              location.pathname === "/" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+            }`}
           >
             Inicio
           </Link>
           <Link
             to="/catalog"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-gray-700 text-lg hover:text-primary bg-transparent hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium"
+            className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
+              location.pathname === "/catalog" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+            }`}
           >
             Catálogo
           </Link>
           <Link
             to="/categories"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-gray-700 text-lg hover:text-primary bg-transparent hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium"
+            className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
+              location.pathname === "/categories" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+            }`}
           >
             Categorías
           </Link>
           <Link
             to="/about"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-gray-700 text-lg hover:text-primary bg-transparent hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium"
+            className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
+              location.pathname === "/about" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+            }`}
           >
             Historia
           </Link>

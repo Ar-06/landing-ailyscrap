@@ -1,3 +1,5 @@
+import { CategoriesCorousel } from "../components/categories-corousel";
+
 export default function Categories() {
   return (
     <section className="py-12 md:py-20 decoration-dotted-circle bg-dotted-pattern min-h-screen animate-fade-in">
@@ -15,6 +17,9 @@ export default function Categories() {
             Descubre cada una de nuestras colecciones tematicas diseñadas para
             convertir momentos especiales en recuerdos eternos.
           </p>
+        </div>
+        <div className="w-full mt-12">
+          <CategoriesCorousel />
         </div>
       </div>
     </section>
