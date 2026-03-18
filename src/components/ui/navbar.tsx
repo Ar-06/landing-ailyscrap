@@ -14,6 +14,10 @@ export const Navbar = () => {
     }
   }, [isMobileMenuOpen]);
 
+  const phoneNumber = "51981513141";
+  const message = `¡Hola! ¿Me podrían dar más información para hacer el pedido, por favor?`;
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
   return (
     <>
       <header className="sticky top-0 z-50 bg-surface-light/90 backdrop-blur-sm border-b border-gray-100 shadow-sm">
@@ -44,7 +48,9 @@ export const Navbar = () => {
               <Link
                 to="/catalog"
                 className={`hover:text-primary transition-colors font-medium ${
-                  location.pathname === "/catalog" ? "text-primary" : "text-gray-600"
+                  location.pathname === "/catalog"
+                    ? "text-primary"
+                    : "text-gray-600"
                 }`}
               >
                 Catálogo
@@ -52,7 +58,9 @@ export const Navbar = () => {
               <Link
                 to="/categories"
                 className={`hover:text-primary transition-colors font-medium ${
-                  location.pathname === "/categories" ? "text-primary" : "text-gray-600"
+                  location.pathname === "/categories"
+                    ? "text-primary"
+                    : "text-gray-600"
                 }`}
               >
                 Categorías
@@ -60,15 +68,23 @@ export const Navbar = () => {
               <Link
                 to="/about"
                 className={`hover:text-primary transition-colors font-medium ${
-                  location.pathname === "/about" ? "text-primary" : "text-gray-600"
+                  location.pathname === "/about"
+                    ? "text-primary"
+                    : "text-gray-600"
                 }`}
               >
                 Historia
               </Link>
-              <button className="flex items-center justify-between px-5 py-2 gap-2 rounded-full bg-primary text-white font-medium hover:bg-teal-600 transition-all shadow-md cursor-pointer">
+              <a
+                aria-label="Contactar por WhatsApp"
+                className="flex items-center justify-between px-5 py-2 gap-2 rounded-full bg-primary text-white font-medium hover:bg-teal-600 transition-all shadow-md cursor-pointer"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span>Contactar</span>
                 <ArrowRight className="h-4 w-4" />
-              </button>
+              </a>
             </div>
 
             <div className="md:hidden flex items-center">
@@ -118,7 +134,9 @@ export const Navbar = () => {
             to="/"
             onClick={() => setIsMobileMenuOpen(false)}
             className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
-              location.pathname === "/" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+              location.pathname === "/"
+                ? "text-primary bg-primary/5"
+                : "text-gray-700 bg-transparent"
             }`}
           >
             Inicio
@@ -127,7 +145,9 @@ export const Navbar = () => {
             to="/catalog"
             onClick={() => setIsMobileMenuOpen(false)}
             className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
-              location.pathname === "/catalog" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+              location.pathname === "/catalog"
+                ? "text-primary bg-primary/5"
+                : "text-gray-700 bg-transparent"
             }`}
           >
             Catálogo
@@ -136,7 +156,9 @@ export const Navbar = () => {
             to="/categories"
             onClick={() => setIsMobileMenuOpen(false)}
             className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
-              location.pathname === "/categories" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+              location.pathname === "/categories"
+                ? "text-primary bg-primary/5"
+                : "text-gray-700 bg-transparent"
             }`}
           >
             Categorías
@@ -145,7 +167,9 @@ export const Navbar = () => {
             to="/about"
             onClick={() => setIsMobileMenuOpen(false)}
             className={`text-lg hover:text-primary hover:bg-primary/5 px-4 py-3 rounded-xl transition-all font-medium ${
-              location.pathname === "/about" ? "text-primary bg-primary/5" : "text-gray-700 bg-transparent"
+              location.pathname === "/about"
+                ? "text-primary bg-primary/5"
+                : "text-gray-700 bg-transparent"
             }`}
           >
             Historia

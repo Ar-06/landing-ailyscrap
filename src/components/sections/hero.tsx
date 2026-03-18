@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
+  const phoneNumber = "51981513141";
+  const message = `¡Hola! Quisiera un pedido personalizado, ¿Me podrían dar más información?`;
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
   return (
     <section className="relative overflow-hidden py-12 sm:py-16 md:py-24 decoration-dotted-circle bg-dotted-pattern">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -27,12 +31,15 @@ export const Hero = () => {
           >
             Ver Catálogo
           </Link>
-          <Link
-            to="/"
+          <a
+            aria-label="Pedir un pedido personalizado por WhatsApp"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full sm:w-auto px-8 py-3 rounded-full bg-white border-2 border-gray-200 text-gray-700 font-bold text-lg transition-all"
           >
             Pedido Personalizado
-          </Link>
+          </a>
         </div>
       </div>
 

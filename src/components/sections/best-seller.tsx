@@ -1,6 +1,6 @@
 import { ArrowRight, PaintRoller } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CardProduct } from "./card-product";
+import { CardProduct } from "../features/card-product";
 
 export const BestSeller = () => {
   return (

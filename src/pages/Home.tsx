@@ -1,7 +1,7 @@
-import { BestSeller } from "../components/best-seller";
-import { Collections } from "../components/collections";
-import { Feedback } from "../components/feedback";
-import { Hero } from "../components/hero";
+import { BestSeller } from "../components/sections/best-seller";
+import { Collections } from "../components/sections/collections";
+import { Feedback } from "../components/sections/feedback";
+import { Hero } from "../components/sections/hero";
 
 export default function Home() {
   return (

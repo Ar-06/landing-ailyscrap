@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { CardCategory } from "./card-category";
+import { CardCategory } from "../features/card-category";
 
 export const CategoriesCorousel = () => {
   const scrollRef = useRef<HTMLDivElement>(null);

@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { CardProduct } from "../components/card-product";
+import { CardProduct } from "../components/features/card-product";
 
 export default function Catalog() {
   return (

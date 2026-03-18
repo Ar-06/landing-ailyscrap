@@ -1,5 +1,5 @@
-import avatar from "../assets/avatar-lia.png";
-import { Carrousel } from "./carrousel";
+import avatar from "../../assets/avatar-lia.png";
+import { Carrousel } from "../ui/carrousel";
 
 export const Feedback = () => {
   return (

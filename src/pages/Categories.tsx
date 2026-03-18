@@ -1,4 +1,4 @@
-import { CategoriesCorousel } from "../components/categories-corousel";
+import { CategoriesCorousel } from "../components/ui/categories-corousel";
 
 export default function Categories() {
   return (
