@@ -1,6 +1,6 @@
 import { ArrowRight, PaintRoller } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Card } from "./card";
+import { CardProduct } from "./card-product";
 
 export const BestSeller = () => {
   return (
@@ -14,12 +14,14 @@ export const BestSeller = () => {
             <h3 className="font-display text-3xl md:text-4xl text-gray-900">
               Lo más vendido
             </h3>
-            <p className="text-gray-600 mt-2 text-sm md:text-base">Nuestras creaciones favoritas</p>
+            <p className="text-gray-600 mt-2 text-sm md:text-base">
+              Nuestras creaciones favoritas
+            </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
-          <Card
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <CardProduct
             category="categoria 1"
             title="titulo 1"
             description="descripcion 1"

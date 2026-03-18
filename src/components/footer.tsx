@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-100 relative mt-12">
-      {/* Línea decorativa superior */}
+    <footer className="bg-white border-t border-gray-100 relative">
       <div className="absolute top-0 left-0 w-full border-t-2 border-dashed border-gray-200"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Columna 1: Marca y Redes */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start space-x-2 mb-4">
               <Scissors className="text-primary w-7 h-7 transform -rotate-12" />
