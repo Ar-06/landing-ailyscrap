@@ -1,33 +1,31 @@
+import { useNavigate } from "react-router-dom";
+import type { Product } from "../../@types/product.type";
+
 interface CardProps {
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-  category: string;
+  product: Product;
 }
 
-export const CardProduct = ({
-  title,
-  description,
-  image,
-  price,
-  category,
-}: CardProps) => {
+export const CardProduct = ({ product }: CardProps) => {
+  const navigate = useNavigate();
+
   const phoneNumber = "51981513141";
-  const message = `¡Hola! Me encantó este producto que vi en su catálogo web:\n\n✨ *${title}*\n💰 *Precio:* S/ ${Number(price).toFixed(2)}\n\n¿Me podrían dar más información para hacer el pedido, por favor?`;
+  const message = `¡Hola! Me encantó este producto que vi en su catálogo web:\n\n✨ *${product.title}*\n💰 *Precio:* S/ ${Number(product.price).toFixed(2)}\n\n¿Me podrían dar más información para hacer el pedido, por favor?`;
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className="group relative bg-white rounded-3xl p-3 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-500 border border-gray-100 flex flex-col h-full">
-      <div className="relative overflow-hidden w-full h-56 sm:h-64 rounded-2xl mb-4">
+    <div className="group relative bg-white rounded-3xl p-3 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-500 border border-gray-100 flex flex-col h-full cursor-pointer">
+      <div
+        className="relative overflow-hidden w-full h-56 sm:h-64 rounded-2xl mb-4"
+        onClick={() => navigate(`/product/${product.id_product}`)}
+      >
         <img
-          src={image}
-          alt={title}
+          src={product.image}
+          alt={product.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
         />
         <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm">
           <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
-            {category}
+            {product.category}
           </span>
         </div>
         <div className="absolute inset-0 bg-linear-to from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -35,10 +33,10 @@ export const CardProduct = ({
 
       <div className="flex flex-col grow px-2 pb-2 text-left">
         <h4 className="font-display text-xl font-bold text-gray-800 mb-1.5 group-hover:text-primary transition-colors duration-300">
-          {title}
+          {product.title}
         </h4>
         <p className="text-gray-500 text-sm line-clamp-2 leading-relaxed font-light mb-4">
-          {description}
+          {product.description}
         </p>
 
         <div className="mt-auto flex items-end justify-between pt-4 border-t border-gray-100/80">
@@ -47,12 +45,12 @@ export const CardProduct = ({
               Precio
             </span>
             <span className="text-2xl font-bold text-gray-900 leading-none whitespace-nowrap">
-              S/ {Number(price).toFixed(2)}
+              S/ {Number(product.price).toFixed(2)}
             </span>
           </div>
 
           <a
-            aria-label={`Pedir ${title} por WhatsApp`}
+            aria-label={`Pedir ${product.title} por WhatsApp`}
             className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd5b] text-white px-4 py-2.5 rounded-2xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-[#25D366]/30 active:scale-95 translate-y-0 group-hover:-translate-y-1"
             href={whatsappUrl}
             target="_blank"

@@ -22,11 +22,15 @@ export const BestSeller = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <CardProduct
-            category="categoria 1"
-            title="titulo 1"
-            description="descripcion 1"
-            image="https://picsum.photos/id/10/400/200"
-            price={10}
+            product={{
+              id_product: "0001",
+              title: "Producto 1",
+              description: "Descripcion",
+              price: 10,
+              image:
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuCAjfM273dOW-almyOga_s4b-WMT2WQQKUv_Q0tEwga4hKsJOPNEU7sEqdX8IqVVoBEmDdVAGYVfJwuma3JYmcmLgzUWsG7Agcw5tjxfv9-OggMUpEqntFw9qVJQfycHhX8spt92Vi1Fm_NImc4nDrWzLu7iZbU8oBKTfNCTZAZK01tzbel2J-wgWqYcnly060tjOAd4b45RCDuT8Y86nFrWuR0-NKYwGch2uV74HqsYxp_4YRhHKd2gIbk6C-li6q-n8bzIOn6v6E",
+              category: "Categoria 1",
+            }}
           />
         </div>
         <div className="mt-10 md:mt-12 text-center">

@@ -24,11 +24,15 @@ export default function Catalog() {
           {Array.from({ length: 12 }).map((_, index) => (
             <CardProduct
               key={index}
-              title="Card"
-              description="Card"
-              image="https://images.unsplash.com/photo-1506744038136-479a7d45f98a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-              price={10}
-              category="Category"
+              product={{
+                id_product: "0001",
+                title: "Producto 1",
+                description: "Descripcion",
+                price: 10,
+                image:
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuCAjfM273dOW-almyOga_s4b-WMT2WQQKUv_Q0tEwga4hKsJOPNEU7sEqdX8IqVVoBEmDdVAGYVfJwuma3JYmcmLgzUWsG7Agcw5tjxfv9-OggMUpEqntFw9qVJQfycHhX8spt92Vi1Fm_NImc4nDrWzLu7iZbU8oBKTfNCTZAZK01tzbel2J-wgWqYcnly060tjOAd4b45RCDuT8Y86nFrWuR0-NKYwGch2uV74HqsYxp_4YRhHKd2gIbk6C-li6q-n8bzIOn6v6E",
+                category: "Categoria 1",
+              }}
             />
           ))}
         </div>

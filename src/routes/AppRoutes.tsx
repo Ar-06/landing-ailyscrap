@@ -5,6 +5,7 @@ import About from "../pages/About";
 import Catalog from "../pages/Catalog";
 import Categories from "../pages/Categories";
 import Home from "../pages/Home";
+import { ProductDetail } from "../pages/ProductoDetail";
 
 export default function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function AppRoutes() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/about" element={<About />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

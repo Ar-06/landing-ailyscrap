@@ -2,7 +2,7 @@ import { Hand, Heart, Star } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="py-12 md:py-20 decoration-dotted-circle bg-dotted-pattern min-h-screen  animate-fade-in">
+    <section className="py-12 md:py-20 decoration-dotted-circle bg-dotted-pattern min-h-screen  animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-surface-light rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
@@ -133,6 +133,6 @@ export default function About() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
