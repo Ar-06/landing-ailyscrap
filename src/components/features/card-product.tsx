@@ -11,20 +11,20 @@ export const CardProduct = ({ product }: CardProps) => {
 
   return (
     <div
-      onClick={() => navigate(`/product/${product.id_product}`)}
+      onClick={() => navigate(`/product/${product.id}`)}
       role="button"
       tabIndex={0}
       className="group relative bg-white rounded-3xl p-3 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 border border-gray-100 flex flex-col h-full cursor-pointer overflow-hidden"
     >
       <div className="relative overflow-hidden w-full h-56 sm:h-64 rounded-2xl mb-5">
         <img
-          src={product.image}
+          src={product.images[0].url}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
         <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm">
           <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
-            {product.category}
+            {product.category.name}
           </span>
         </div>
 

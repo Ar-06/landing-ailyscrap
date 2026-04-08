@@ -1,37 +1,62 @@
-import { Clock, Package, Palette, Ruler } from "lucide-react";
+import {
+  Clock,
+  Frown,
+  Image as ImageIcon,
+  Loader2,
+  Package,
+  Palette,
+  Ruler,
+} from "lucide-react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import type { ProductImage } from "../@types/product.type";
+import useProductById from "../hooks/useProductById";
 
 export const ProductDetail = () => {
-  const product = {
-    title: "Explosión Box Amor",
-    category: "Amor y Amistad",
-    price: 10.0,
-    description:
-      "Caja desplegable personalizada con 4 capas para fotos y mensajes. Hecha a mano con cartulina de alta calidad y detalles en relieve. Perfecta para sorprender a tu persona favorita con un recuerdo único que se despliega al abrir la tapa.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCAjfM273dOW-almyOga_s4b-WMT2WQQKUv_Q0tEwga4hKsJOPNEU7sEqdX8IqVVoBEmDdVAGYVfJwuma3JYmcmLgzUWsG7Agcw5tjxfv9-OggMUpEqntFw9qVJQfycHhX8spt92Vi1Fm_NImc4nDrWzLu7iZbU8oBKTfNCTZAZK01tzbel2J-wgWqYcnly060tjOAd4b45RCDuT8Y86nFrWuR0-NKYwGch2uV74HqsYxp_4YRhHKd2gIbk6C-li6q-n8bzIOn6v6E",
-    images: [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCAjfM273dOW-almyOga_s4b-WMT2WQQKUv_Q0tEwga4hKsJOPNEU7sEqdX8IqVVoBEmDdVAGYVfJwuma3JYmcmLgzUWsG7Agcw5tjxfv9-OggMUpEqntFw9qVJQfycHhX8spt92Vi1Fm_NImc4nDrWzLu7iZbU8oBKTfNCTZAZK01tzbel2J-wgWqYcnly060tjOAd4b45RCDuT8Y86nFrWuR0-NKYwGch2uV74HqsYxp_4YRhHKd2gIbk6C-li6q-n8bzIOn6v6E",
-      "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80",
-    ],
+  const { id } = useParams();
 
-    specs: {
-      dimensions: "15 x 15 x 15 cm (Cerrada)",
-      material: "Cartulina fina 250g",
-      leadTime: "3 a 5 días hábiles",
-      capacity: "Hasta 24 fotos",
-    },
-  };
+  const { product, loading, error } = useProductById(id);
 
-  const galleryImages = product.images?.length
-    ? product.images
-    : [product.image];
-  const [selectedImage, setSelectedImage] = useState(galleryImages[0]);
+  const [selectedImage, setSelectedImage] = useState<ProductImage | null>(null);
+
+  if (loading) {
+    return (
+      <div className="py-20 flex flex-col items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-12 h-12 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 flex flex-col items-center justify-center min-h-[60vh]">
+        <Frown className="w-12 h-12 text-gray-500 mb-4" />
+        <p className="text-gray-500 text-lg">{error}</p>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="py-20 flex flex-col items-center justify-center min-h-[60vh]">
+        <Frown className="w-12 h-12 text-gray-500 mb-4" />
+        <p className="text-gray-500 text-lg">Producto no encontrado</p>
+      </div>
+    );
+  }
+
+  const galleryImages = product.images || [];
+  const displayImage = selectedImage || galleryImages[0];
+
+  const specsList = product.specs
+    ? Object.entries(product.specs).filter(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        ([_, value]) => value && value.trim() !== "",
+      )
+    : [];
 
   const phoneNumber = "51981513141";
-  const message = `¡Hola Aylis Scrap! ✨ Me encantaría pedir el producto:\n\n*${product.title}*\n💰 Precio: S/ ${product.price.toFixed(2)}\n\n¿Me podrías confirmar disponibilidad?`;
+  const message = `¡Hola Aylis Scrap! ✨ Me encantaría pedir el producto:\n\n*${product.title}*\n💰 Precio: S/ ${product.price}\n\n¿Me podrías confirmar disponibilidad?`;
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -41,22 +66,29 @@ export const ProductDetail = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
             <div className="bg-gray-50 p-8 lg:p-12 relative overflow-hidden flex items-center justify-center">
               <div className="w-full max-w-md">
-                <div className="bg-white p-2 rounded-2xl shadow-md border border-gray-100 mb-4">
-                  <img
-                    src={selectedImage}
-                    alt={product.title}
-                    className="w-full h-auto rounded-xl object-cover aspect-square"
-                  />
+                <div className="bg-white p-2 rounded-2xl shadow-md border border-gray-100 mb-4 aspect-square flex items-center justify-center overflow-hidden">
+                  {displayImage ? (
+                    <img
+                      src={displayImage.url}
+                      alt={product.title}
+                      className="w-full h-full rounded-xl object-cover"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center text-gray-400">
+                      <ImageIcon className="w-16 h-16 mb-2 opacity-50" />
+                      <span className="text-sm">Sin imagen</span>
+                    </div>
+                  )}
                 </div>
 
                 {galleryImages.length > 1 && (
                   <div className="grid grid-cols-4 gap-3">
                     {galleryImages.map((image, index) => {
-                      const isActive = image === selectedImage;
+                      const isActive = displayImage?.id === image.id;
 
                       return (
                         <button
-                          key={`${product.title}-${index}`}
+                          key={image.id}
                           type="button"
                           onClick={() => setSelectedImage(image)}
                           className={`bg-white p-1.5 rounded-xl border shadow-sm transition-all overflow-hidden ${
@@ -64,12 +96,12 @@ export const ProductDetail = () => {
                               ? "border-primary ring-2 ring-primary/20"
                               : "border-gray-100 hover:border-primary/40"
                           }`}
-                          aria-label={`Ver imagen ${index + 1} de ${product.title}`}
+                          aria-label={`Ver imagen ${index + 1}`}
                           aria-pressed={isActive}
                         >
                           <img
-                            src={image}
-                            alt={`${product.title} miniatura ${index + 1}`}
+                            src={image.url}
+                            alt={`Miniatura ${index + 1}`}
                             className="w-full aspect-square object-cover rounded-lg"
                           />
                         </button>
@@ -83,82 +115,69 @@ export const ProductDetail = () => {
             <div className="flex flex-col justify-center p-8 lg:p-12">
               <div className="mb-6">
                 <span className="text-primary font-bold text-sm tracking-widest uppercase mb-2 block">
-                  {product.category}
+                  {product.category?.name || "Catálogo"}
                 </span>
                 <h1 className="font-display text-4xl md:text-5xl text-gray-900 mb-4">
                   {product.title}
                 </h1>
                 <div className="mb-6">
                   <span className="text-3xl font-bold text-gray-900">
-                    S/ {product.price.toFixed(2)}
+                    S/ {Number(product.price).toFixed(2)}
                   </span>
                 </div>
-                <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                <p className="text-gray-600 text-lg leading-relaxed mb-8 whitespace-pre-wrap">
                   {product.description}
                 </p>
               </div>
 
               <div className="bg-white rounded-2xl p-6 border border-gray-100 mb-8 shadow-sm">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Detalles del producto
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
-                  {product.specs.dimensions && (
-                    <div className="flex items-start gap-3">
-                      <Ruler className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
-                          Tamaño
-                        </p>
-                        <p className="text-sm text-gray-700">
-                          {product.specs.dimensions}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                {specsList.length > 0 && (
+                  <div className="bg-white rounded-2xl p-6 border border-gray-100 mb-8 shadow-sm">
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                      Detalles del producto
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                      {specsList.map(([key, value], index) => {
+                        let Icon = Package;
+                        let iconColor = "text-purple-400";
 
-                  {product.specs.material && (
-                    <div className="flex items-start gap-3">
-                      <Palette className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
-                          Material
-                        </p>
-                        <p className="text-sm text-gray-700">
-                          {product.specs.material}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                        const lowerKey = key.toLowerCase();
+                        if (
+                          lowerKey.includes("tamaño") ||
+                          lowerKey.includes("dimes") ||
+                          lowerKey.includes("medida")
+                        ) {
+                          Icon = Ruler;
+                          iconColor = "text-primary";
+                        } else if (lowerKey.includes("material")) {
+                          Icon = Palette;
+                          iconColor = "text-secondary";
+                        } else if (
+                          lowerKey.includes("tiempo") ||
+                          lowerKey.includes("elaboraci") ||
+                          lowerKey.includes("lead")
+                        ) {
+                          Icon = Clock;
+                          iconColor = "text-accent";
+                        }
 
-                  {product.specs.leadTime && (
-                    <div className="flex items-start gap-3">
-                      <Clock className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
-                          Elaboración
-                        </p>
-                        <p className="text-sm text-gray-700">
-                          {product.specs.leadTime}
-                        </p>
-                      </div>
+                        return (
+                          <div key={index} className="flex items-start gap-3">
+                            <Icon
+                              className={`w-5 h-5 ${iconColor} mt-0.5 shrink-0`}
+                            />
+                            <div>
+                              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                                {key}
+                              </p>
+                              <p className="text-sm text-gray-700">{value}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  )}
-
-                  {product.specs.capacity && (
-                    <div className="flex items-start gap-3">
-                      <Package className="w-5 h-5 text-purple-400 mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
-                          Capacidad / Incluye
-                        </p>
-                        <p className="text-sm text-gray-700">
-                          {product.specs.capacity}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">

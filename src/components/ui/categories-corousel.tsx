@@ -1,93 +1,29 @@
+import { Loader2 } from "lucide-react";
 import { useRef, useState } from "react";
+import useCategories from "../../hooks/useCategories";
 import { CardCategory } from "../features/card-category";
 
 export const CategoriesCorousel = () => {
+  const { categories, loading } = useCategories();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const categoriasDB = [
-    {
-      id: 1,
-      categoryLabel: "AMOR Y AMISTAD",
-      title: "San Valentín",
-      description: "Detalles llenos de romance.",
-      image:
-        "https://images.unsplash.com/photo-1518192167132-8418ff86dc8f?fit=crop&w=800",
-    },
-    {
-      id: 2,
-      categoryLabel: "PARA MAMÁ",
-      title: "Día de la Madre",
-      description: "Regalos únicos para la reina.",
-      image:
-        "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?fit=crop&w=800",
-    },
-    {
-      id: 3,
-      categoryLabel: "VUELTA A CLASES",
-      title: "Campaña Escolar",
-      description: "Personaliza la vuelta al cole.",
-      image:
-        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?fit=crop&w=800",
-    },
-    {
-      id: 4,
-      categoryLabel: "DIY & CRAFT",
-      title: "Papelería Creativa",
-      description: "Kits de scrapbooking.",
-      image:
-        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?fit=crop&w=800",
-    },
-    {
-      id: 5,
-      categoryLabel: "BODAS",
-      title: "Matrimonios",
-      description: "Recuerdos para invitados.",
-      image:
-        "https://images.unsplash.com/photo-1519225421980-715cb0215aed?fit=crop&w=800",
-    },
-    {
-      id: 6,
-      categoryLabel: "INFANTIL",
-      title: "Baby Shower",
-      description: "Para la llegada del bebé.",
-      image:
-        "https://images.unsplash.com/photo-1519689680058-324335c77eba?fit=crop&w=800",
-    },
-    {
-      id: 7,
-      categoryLabel: "FIESTAS",
-      title: "Cumpleaños",
-      description: "Cajas sorpresa de regalo.",
-      image:
-        "https://images.unsplash.com/photo-1530103862676-de88b635f608?fit=crop&w=800",
-    },
-    {
-      id: 8,
-      categoryLabel: "EJECUTIVO",
-      title: "Corporativo",
-      description: "Regalos para empresas.",
-      image:
-        "https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=800",
-    },
-  ];
-
   const textColors = [
-    "text-pink-400",
     "text-yellow-400",
+    "text-pink-400",
     "text-teal-400",
     "text-purple-400",
   ];
   const dotBgColors = [
-    "bg-pink-200",
     "bg-yellow-200",
+    "bg-pink-200",
     "bg-teal-200",
     "bg-purple-200",
   ];
 
   const pages = [];
-  for (let i = 0; i < categoriasDB.length; i++) {
-    pages.push(categoriasDB.slice(i, i + 4));
+  for (let i = 0; i < categories.length; i += 4) {
+    pages.push(categories.slice(i, i + 4));
   }
 
   const handleScroll = () => {
@@ -105,6 +41,14 @@ export const CategoriesCorousel = () => {
       behavior: "smooth",
     });
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
@@ -124,10 +68,7 @@ export const CategoriesCorousel = () => {
                 return (
                   <CardCategory
                     key={cat.id}
-                    categoryLabel={cat.categoryLabel}
-                    title={cat.title}
-                    description={cat.description}
-                    image={cat.image}
+                    category={cat}
                     colorClass={colorAutomatico}
                   />
                 );

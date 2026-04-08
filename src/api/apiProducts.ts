@@ -6,12 +6,12 @@ import type {
 
 export const apiProducts = {
   getProducts: async ({
-    limit = 10,
     page = 1,
+    limit = 10,
     category,
   }: {
-    limit?: number;
     page?: number;
+    limit?: number;
     category?: string;
   }): Promise<ProductResponse> => {
     const params = new URLSearchParams({

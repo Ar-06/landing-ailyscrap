@@ -1,8 +1,21 @@
-import { ArrowRight, PaintRoller } from "lucide-react";
+import { ArrowRight, Loader2, PaintRoller } from "lucide-react";
 import { Link } from "react-router-dom";
+import useProducts from "../../hooks/useProducts";
 import { CardProduct } from "../features/card-product";
 
 export const BestSeller = () => {
+  const { products, loading } = useProducts();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  const topProducts = products.slice(0, 4);
+
   return (
     <section className="py-12 md:py-16 bg-background-light transition-colors duration-300 relative">
       <div className="absolute top-10 right-10 opacity-10 hidden lg:block transform rotate-12">
@@ -21,17 +34,9 @@ export const BestSeller = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          <CardProduct
-            product={{
-              id_product: "0001",
-              title: "Producto 1",
-              description: "Descripcion",
-              price: 10,
-              image:
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuCAjfM273dOW-almyOga_s4b-WMT2WQQKUv_Q0tEwga4hKsJOPNEU7sEqdX8IqVVoBEmDdVAGYVfJwuma3JYmcmLgzUWsG7Agcw5tjxfv9-OggMUpEqntFw9qVJQfycHhX8spt92Vi1Fm_NImc4nDrWzLu7iZbU8oBKTfNCTZAZK01tzbel2J-wgWqYcnly060tjOAd4b45RCDuT8Y86nFrWuR0-NKYwGch2uV74HqsYxp_4YRhHKd2gIbk6C-li6q-n8bzIOn6v6E",
-              category: "Categoria 1",
-            }}
-          />
+          {topProducts.map((product) => (
+            <CardProduct key={product.id} product={product} />
+          ))}
         </div>
         <div className="mt-10 md:mt-12 text-center">
           <Link
