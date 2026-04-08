@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import type { ProductImage } from "../@types/product.type";
 import useProductById from "../hooks/useProductById";
 
-export const ProductDetail = () => {
+export default function ProductDetail() {
   const { id } = useParams();
 
   const { product, loading, error } = useProductById(id);
@@ -203,4 +203,4 @@ export const ProductDetail = () => {
       </div>
     </section>
   );
-};
+}

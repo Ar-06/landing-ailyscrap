@@ -5,7 +5,7 @@ import About from "../pages/About";
 import Catalog from "../pages/Catalog";
 import Categories from "../pages/Categories";
 import Home from "../pages/Home";
-import { ProductDetail } from "../pages/ProductoDetail";
+import ProductDetail from "../pages/ProductoDetail";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +15,7 @@ export default function AppRoutes() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog/category/:categoryId" element={<Catalog />} />
           <Route path="/about" element={<About />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/product/:id" element={<ProductDetail />} />

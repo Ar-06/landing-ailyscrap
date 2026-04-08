@@ -43,7 +43,7 @@ export const CardCategory = ({ category, colorClass }: CardCategoryProps) => {
         </div>
 
         <Link
-          to="/catalog"
+          to={`/catalog/category/${category.id}`}
           className={`inline-flex items-center gap-2.5 ${colorClass} font-medium hover:underline transition-colors group/link`}
         >
           <span className="text-base">Ver colección</span>

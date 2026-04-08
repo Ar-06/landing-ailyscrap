@@ -1,10 +1,18 @@
 import { ChevronDown, Loader2, Package2Icon } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 import { CardProduct } from "../components/features/card-product";
+import useCategories from "../hooks/useCategories";
 import useProducts from "../hooks/useProducts";
 
 export default function Catalog() {
+  const { categoryId } = useParams();
   const { products, loading, loadingMore, loadMore, error, hasMore } =
-    useProducts();
+    useProducts(10, categoryId);
+  const { categories } = useCategories();
+
+  const activeCategoryName = categoryId
+    ? categories.find((c) => c.id === categoryId)?.name || "Categoría"
+    : null;
 
   if (loading) {
     return (
@@ -32,15 +40,32 @@ export default function Catalog() {
           <div className="absolute top-0 right-1/4 -mt-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl -z-10" />
           <div className="absolute bottom-0 left-1/4 -mb-10 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -z-10" />
           <span className="text-accent font-bold text-sm tracking-widest uppercase mb-2 block">
-            Hecho a mano
+            {activeCategoryName ? "Colección Especial" : "Hecho a mano"}
           </span>
           <h2 className="font-display text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
-            Nuestro <span className="text-primary">Catálogo</span>
+            {activeCategoryName ? (
+              <span className="capitalize">{activeCategoryName}</span>
+            ) : (
+              <>
+                Nuestro <span className="text-primary">Catálogo</span>
+              </>
+            )}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg font-light">
-            Descubre nuestra colección de detalles únicos, creados con paciencia
-            y cariño para atesorar tus momentos más especiales.
+            {activeCategoryName
+              ? `Explora todos nuestros diseños únicos en la categoría de ${activeCategoryName.toLowerCase()}.`
+              : "Descubre nuestra colección de detalles únicos, creados con paciencia y cariño para atesorar tus momentos más especiales."}
           </p>
+          {activeCategoryName && (
+            <div className="mt-6">
+              <Link
+                to="/catalog"
+                className="text-sm font-medium text-primary hover:text-primary/80 transition-colors bg-primary/10 px-4 py-2 rounded-full"
+              >
+                ← Ver todos los productos
+              </Link>
+            </div>
+          )}
         </div>
 
         {products.length === 0 ? (
